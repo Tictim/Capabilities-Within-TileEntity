@@ -15,7 +15,7 @@ public class HotAndDangerousTileEntity extends TileEntity{
 	public HotAndDangerousTileEntity(){
 		this(Contents.HOT_AND_DANGEROUS_TE.get());
 	}
-	public HotAndDangerousTileEntity(TileEntityType<?> tileEntityTypeIn){
+	protected HotAndDangerousTileEntity(TileEntityType<?> tileEntityTypeIn){
 		super(tileEntityTypeIn);
 	}
 
@@ -28,5 +28,11 @@ public class HotAndDangerousTileEntity extends TileEntity{
 			return hot.cast();
 		}else if(Contents.DANGEROUS_CAP==cap) return dangerous.cast();
 		else return super.getCapability(cap, side);
+	}
+
+	@Override public void remove(){
+		super.remove();
+		if(hot!=null) hot.invalidate();
+		dangerous.invalidate();
 	}
 }

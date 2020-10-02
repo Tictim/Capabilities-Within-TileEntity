@@ -13,7 +13,7 @@ public class DangerousTileEntity extends TileEntity{
 	public DangerousTileEntity(){
 		this(Contents.DANGEROUS_TE.get());
 	}
-	public DangerousTileEntity(TileEntityType<?> tileEntityTypeIn){
+	protected DangerousTileEntity(TileEntityType<?> tileEntityTypeIn){
 		super(tileEntityTypeIn);
 	}
 
@@ -21,5 +21,10 @@ public class DangerousTileEntity extends TileEntity{
 
 	@Override public <T> LazyOptional<T> getCapability(Capability<T> cap, @Nullable Direction side){
 		return cap==Contents.DANGEROUS_CAP ? dangerous.cast() : super.getCapability(cap, side);
+	}
+
+	@Override public void remove(){
+		super.remove();
+		dangerous.invalidate();
 	}
 }

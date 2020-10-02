@@ -12,11 +12,10 @@ import javax.annotation.Nullable;
 import static tictim.caps1.content.Contents.HOT_CAP;
 
 public class HotTileEntity extends TileEntity{
-
 	public HotTileEntity(){
 		this(Contents.HOT_TE.get());
 	}
-	public HotTileEntity(TileEntityType<?> tileEntityTypeIn){
+	protected HotTileEntity(TileEntityType<?> tileEntityTypeIn){
 		super(tileEntityTypeIn);
 	}
 
@@ -24,5 +23,10 @@ public class HotTileEntity extends TileEntity{
 
 	@Override public <T> LazyOptional<T> getCapability(Capability<T> cap, @Nullable Direction side){
 		return cap==HOT_CAP ? alice.cast() : super.getCapability(cap, side);
+	}
+
+	@Override public void remove(){
+		super.remove();
+		alice.invalidate();
 	}
 }
